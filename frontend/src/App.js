@@ -23,7 +23,7 @@ function App() {
     const token = localStorage.getItem("token");
     if (token) {
       axios
-        .get("http://localhost:5000/user/details", { headers: { Authorization: `Bearer ${token}` } })
+        .get(`${process.env.REACT_APP_API_URL}/user/details`, { headers: { Authorization: `Bearer ${token}` } })
         .then((res) => setUser(res.data.user))
         .catch(() => setUser(null));
     } else {
@@ -59,3 +59,4 @@ function App() {
 }
 
 export default App;
+

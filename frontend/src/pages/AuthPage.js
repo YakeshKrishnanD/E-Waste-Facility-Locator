@@ -17,7 +17,8 @@ export default function AuthPage() {
   // ✅ Handle Login/Register Request
   const handleSubmit = async () => {
     try {
-      const endpoint = isLogin ? "http://localhost:5000/auth/login" : "http://localhost:5000/auth/register";
+      const baseURL = process.env.REACT_APP_API_URL;
+      const endpoint = isLogin ? `${baseURL}/auth/login` : `${baseURL}/auth/register`;
       const data = isLogin ? { email, password } : { name, email, password };
 
       console.log("📤 Sending Request:", data); // Debugging log
@@ -73,6 +74,8 @@ export default function AuthPage() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+
+
 
         {/* Password Field */}
         <input

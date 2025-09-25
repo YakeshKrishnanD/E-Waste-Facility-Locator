@@ -81,7 +81,8 @@ export default function WasteClassifier() {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/classify", formData, {
+      const baseURL = process.env.REACT_APP_API_URL;
+      const response = await axios.post(`${baseURL}/classify`, formData, {
         headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${token}` },
       });
 
@@ -89,7 +90,7 @@ export default function WasteClassifier() {
 
       // ✅ Save to user history
       await axios.post(
-        "http://localhost:5000/user/history",
+        `${baseURL}/user/history`,
         {
           wasteType: response.data.class,
           image: response.data.imageUrl || capturedImage,
@@ -193,3 +194,7 @@ export default function WasteClassifier() {
     </div>
   );
 }
+
+
+
+

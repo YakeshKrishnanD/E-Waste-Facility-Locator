@@ -20,7 +20,7 @@ export default function Dashboard() {
 
     // ✅ Fetch User Profile
     axios
-      .get("http://localhost:5000/user/details", { headers: { Authorization: `Bearer ${token}` } })
+      .get(`${process.env.REACT_APP_API_URL}/user/details`, { headers: { Authorization: `Bearer ${token}` } })
       .then((res) => {
         setUser(res.data.user);
         setCredits(res.data.user.credits || 0);
@@ -33,7 +33,7 @@ export default function Dashboard() {
 
     // ✅ Fetch User Recycling History
     axios
-      .get("http://localhost:5000/user/history", { headers: { Authorization: `Bearer ${token}` } })
+      .get(`${process.env.REACT_APP_API_URL}/user/history`, { headers: { Authorization: `Bearer ${token}` } })
       .then((res) => {
         setHistory(res.data.history || []);
         setClaimedRewards(res.data.claimedRewards || []);
@@ -55,7 +55,7 @@ export default function Dashboard() {
     const token = localStorage.getItem("token");
   
     axios
-      .post("http://localhost:5000/user/redeem", 
+      .post(`${process.env.REACT_APP_API_URL}/user/redeem`, 
         { reward: reward.reward, points: reward.points }, 
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -76,7 +76,7 @@ export default function Dashboard() {
       const token = localStorage.getItem("token");
   
       axios
-        .post("http://localhost:5000/user/reset", {}, { headers: { Authorization: `Bearer ${token}` } })
+        .post(`${process.env.REACT_APP_API_URL}/user/reset`, {}, { headers: { Authorization: `Bearer ${token}` } })
         .then(() => {
           setCredits(0);
           setHistory([]);
@@ -209,3 +209,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
+
