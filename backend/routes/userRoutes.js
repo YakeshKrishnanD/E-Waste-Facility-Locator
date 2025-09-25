@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/user"); // Ensure correct model path
+const User = require("../models/User"); // Ensure correct model path
 const authMiddleware = require("../middleware/authMiddleware");
 
 // ✅ Save Waste Classification to User History
