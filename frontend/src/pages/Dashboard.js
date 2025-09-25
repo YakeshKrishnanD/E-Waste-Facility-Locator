@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Camera, RefreshCw } from "lucide-react";
 import axios from "axios";
 
 export default function Dashboard() {
@@ -73,9 +74,9 @@ export default function Dashboard() {
   const resetData = () => {
     if (window.confirm("Are you sure you want to reset your credits and history?")) {
       const token = localStorage.getItem("token");
-
+  
       axios
-        .post("http://localhost:5000/user/reset-history", {}, { headers: { Authorization: `Bearer ${token}` } })
+        .post("http://localhost:5000/user/reset", {}, { headers: { Authorization: `Bearer ${token}` } })
         .then(() => {
           setCredits(0);
           setHistory([]);
@@ -85,12 +86,12 @@ export default function Dashboard() {
         .catch((err) => console.error("❌ Error resetting data:", err));
     }
   };
-
+  
   // ✅ Loading State
   if (loading) return <p className="text-center mt-10">🔄 Loading...</p>;
 
   return (
-    <div className="p-6 min-h-screen bg-gray-100">
+    <div className="p-6 min-h-screen bg-green-50">
       <h1 className="text-3xl font-bold text-green-700 text-center">Dashboard</h1>
 
       {/* ✅ User Profile Section */}
@@ -130,7 +131,7 @@ export default function Dashboard() {
         <ul className="mt-2 border p-4 rounded-lg bg-gray-50 shadow">
           {claimedRewards.length > 0 ? (
             claimedRewards.map((item, index) => (
-              <li key={index} className="mb-2 p-3 border rounded-lg bg-gray-100 shadow-sm">
+              <li key={index} className="mb-2 p-3 border rounded-lg bg-gray-100 shadow-sm flex justify-between items-center">
                 <p className="font-semibold">{item?.reward || "Unknown Reward"}</p> 
                 <p className="text-sm text-gray-500">Claimed on: {item?.date ? new Date(item.date).toLocaleString() : "N/A"}</p>
               </li>
@@ -142,12 +143,12 @@ export default function Dashboard() {
       </div>
 
       {/* ✅ Recycling History */}
-      <div className="mt-6 bg-white p-6 shadow-md rounded-lg">
+      <div className="mt-6 bg-white p-6 shadow-md rounded-lg text-center">
   <h2 className="text-xl font-semibold text-gray-700">Recycling History</h2>
   <ul className="mt-2 border p-4 rounded-lg bg-gray-50 shadow">
     {history.length > 0 ? (
       history.map((item, index) => (
-        <li key={index} className="mb-2 p-3 border rounded-lg bg-gray-100 shadow-sm">
+        <li key={index} className="mb-2 p-3 border rounded-lg bg-gray-100 shadow-sm flex justify-between items-center">
           <p><strong>Device Type:</strong> {item.deviceType || "N/A"}</p>
           <p><strong>Brand:</strong> {item.brand || "N/A"}</p>
           <p><strong>Model:</strong> {item.model || "N/A"}</p>
@@ -163,12 +164,43 @@ export default function Dashboard() {
     )}
   </ul>
 </div>
+<div className="mt-6 bg-white p-6 shadow-md rounded-lg">
+  <h2 className="text-xl font-semibold text-gray-700">Recycling History</h2>
+  <ul className="mt-2 border p-4 rounded-lg bg-gray-50 shadow">
+    {history.length > 0 ? (
+      history.map((item, index) => (
+        <li key={index} className="mb-2 p-3 border rounded-lg bg-gray-100 shadow-sm">
+          <p><strong>Waste Type:</strong> {item.wasteType || "N/A"}</p>
+          {item.image && <img src={item.image} alt="Waste" className="w-24 mt-2 rounded-lg shadow-md" />}
+          <p><strong>Classified Date:</strong> {new Date(item.date).toLocaleDateString()}</p>
+        </li>
+      ))
+    ) : (
+      <p className="text-gray-500">No recycling history yet.</p>
+    )}
+  </ul>
+</div>
+
 
 
       {/* ✅ Dispose & Reset Buttons */}
       <div className="text-center mt-6 flex justify-center gap-4">
-        <button onClick={() => navigate("/dispose")} className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition">
-          Dispose E-Waste
+         {/* Recycle Button */}
+         <button
+          onClick={() => navigate("/dispose")}
+          className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition flex items-center justify-center space-x-2"
+        >
+          <RefreshCw className="w-5 h-5 animate-spin" />
+          <span>Recycle Now</span>
+        </button>
+
+        {/* Scan Now Button */}
+        <button
+          onClick={() => navigate("/classifier")}
+          className="px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition flex items-center justify-center space-x-2"
+        >
+          <Camera className="w-5 h-5" />
+          <span>Scan Now</span>
         </button>
         <button onClick={resetData} className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition">
           Reset

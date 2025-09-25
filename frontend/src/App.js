@@ -5,13 +5,16 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Recycle from "./pages/Recycle";
-import EFacilities from "./pages/EFacilities";
 import Education from "./pages/Education";
 import Dashboard from "./pages/Dashboard";
 import AuthPage from "./pages/AuthPage";
 import DisposePage from "./pages/DisposePage";
 import GoogleMapEmbedPage from "./pages/GoogleMapEmbedPage";
 import PrivateRoute from "./components/PrivateRoute";
+import WasteClassifier from "./pages/WasteClassifier";
+import Rules from "./pages/Rules";
+import About from "./pages/About";  // ✅ Import About Page
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -37,13 +40,15 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/recycle" element={<Recycle />} />
-            <Route path="/e-facilities" element={<EFacilities />} />
             <Route path="/education" element={<Education />} />
             <Route path="/auth" element={<AuthPage />} />
+            <Route path="/rules" element={<Rules />} />
+            <Route path="/about" element={<About />} />
             <Route path="/dispose" element={<PrivateRoute><DisposePage /></PrivateRoute>} />
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path="/map" element={<GoogleMapEmbedPage />} />
             <Route path="*" element={<Navigate to="/" />} /> {/* Redirect unknown routes */}
+            <Route path="/classifier" element={<WasteClassifier />} />
           </Routes>
         </div>
 

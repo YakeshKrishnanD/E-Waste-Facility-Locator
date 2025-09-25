@@ -57,7 +57,7 @@ export default function Navbar() {
       {/* Logo */}
       <div className="flex items-center">
         <img src={logo} alt="Logo" className="h-8 w-auto mr-2" />
-        <span className="text-green-700 text-lg font-bold">ELocate</span>
+        <span className="text-green-700 text-lg font-bold">EFinder</span>
       </div>
 
       {/* Navigation Links */}

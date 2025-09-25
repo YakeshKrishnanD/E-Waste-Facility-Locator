@@ -22,39 +22,39 @@ export default function DisposePage() {
         Apple: ["iPhone 13", "iPhone 12", "iPhone 11"],
         Samsung: ["Galaxy S21", "Galaxy Note 10", "Galaxy A52"],
       },
-      creditMultiplier: 10, // 💰 10 credits per unit price
+      creditMultiplier: 50, // 💰 50 credits per unit price
     },
     Laptop: {
       brands: {
         Dell: ["Inspiron 15", "XPS 13", "Latitude 5400"],
         HP: ["Pavilion", "Envy", "Spectre"],
       },
-      creditMultiplier: 15, // 💰 15 credits per unit price
+      creditMultiplier: 60, // 💰 60 credits per unit price
     },
     Accessories: {
       brands: {
         JBL: ["Headphones", "Speakers"],
         Sony: ["Earbuds", "Headphones"],
       },
-      creditMultiplier: 5, // 💰 5 credits per unit price
+      creditMultiplier: 40, // 💰 40 credits per unit price
     },
     Television: {
       brands: {
         Sony: ["Bravia 4K", "Bravia OLED"],
         LG: ["Smart TV", "OLED TV"],
       },
-      creditMultiplier: 12, // 💰 12 credits per unit price
+      creditMultiplier: 60, // 💰 60 credits per unit price
     },
     Refrigerator: {
       brands: {
         Samsung: ["Double Door", "Single Door"],
         Whirlpool: ["Frost-Free", "Convertible"],
       },
-      creditMultiplier: 18, // 💰 18 credits per unit price
+      creditMultiplier: 50, // 💰 60 credits per unit price
     },
     Other: {
       brands: {},
-      creditMultiplier: 8, // 💰 Default multiplier for unknown devices
+      creditMultiplier: 20, // 💰 Default multiplier for unknown devices
     },
   };
 
@@ -133,7 +133,7 @@ export default function DisposePage() {
   };
 
   return (
-    <div className="p-6 min-h-screen flex justify-center items-center bg-gray-100">
+    <div className="min-h-screen p-6 flex justify-center items-center bg-green-50">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
         <h1 className="text-2xl font-bold text-green-700 text-center mb-4">E-Waste Disposal</h1>
 
@@ -174,7 +174,7 @@ export default function DisposePage() {
           )}
 
           {/* Price Input */}
-          <input type="number" className="w-full p-2 border rounded" placeholder="Recycle Item Price" value={price} onChange={(e) => setPrice(e.target.value)} />
+          <input type="number" className="w-full p-2 border rounded" placeholder="Number of Items" value={price} onChange={(e) => setPrice(e.target.value)} />
 
           {/* Pickup Date & Time */}
           <input type="date" className="w-full p-2 border rounded" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} />

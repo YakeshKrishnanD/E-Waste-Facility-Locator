@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 export default function AuthPage() {
@@ -9,6 +9,10 @@ export default function AuthPage() {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // ✅ Get the page user was trying to access before being redirected
+  const redirectPath = new URLSearchParams(location.search).get("redirect") || "/dashboard";
 
   // ✅ Handle Login/Register Request
   const handleSubmit = async () => {
@@ -31,7 +35,9 @@ export default function AuthPage() {
         window.dispatchEvent(new Event("storage"));
 
         setMessage("Login successful!");
-        navigate("/dashboard"); // ✅ Redirect to Dashboard
+        
+        // ✅ Redirect to intended page instead of always going to Dashboard
+        navigate(redirectPath);
       } else {
         setMessage("Login failed. Please try again.");
       }
@@ -42,7 +48,7 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-green-50">
+    <div className="flex items-center justify-center min-h-screen bg-green-50">
       <div className="w-96 p-8 shadow-lg rounded-xl bg-white text-center">
         <h1 className="text-3xl font-bold text-green-700 mb-4">{isLogin ? "Login" : "Register"}</h1>
 
